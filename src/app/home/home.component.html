@@ -1,0 +1,41 @@
+<div class="bg-white p-3 my-3 rounded text-center">
+  <h1>Skattetabell för 2023 (exkl. kyrkoavgift)</h1>
+  <div class="d-flex justify-content-around">
+    <mat-form-field>
+      <mat-label>Sök kommun</mat-label>
+      <input matInput name="kommun" (keyup)="applyFilter($event)" [(ngModel)]="filterValueKommun">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Sök skatt</mat-label>
+      <input matInput name="skatt" (keyup)="applyFilter($event)" [(ngModel)]="filterValueSkatt">
+    </mat-form-field>
+  </div>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="rounded">
+
+  <ng-container matColumnDef="kommun">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="kommun">Kommun</th>
+    <td mat-cell *matCellDef="let row">{{row.kommun}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="skatt">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="skatt">Skatt</th>
+    <td mat-cell *matCellDef="let row">{{row.skatt}}%</td>
+  </ng-container>
+
+  <ng-container matColumnDef="buttons">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row"><button mat-raised-button color="primary"
+        (click)="goToMunicipality(row.kommun)">Visa
+        mer</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator [length]="dataSource.data.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]"
+  showFirstLastButtons></mat-paginator>

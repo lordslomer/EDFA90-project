@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'skatte-visare-deploy'`, () => {
+  it(`should have as title 'skatt-visare'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('skatte-visare-deploy');
+    expect(app.title).toEqual('skatt-visare');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('skatte-visare-deploy app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('skatt-visare app is running!');
   });
 });

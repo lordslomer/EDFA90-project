@@ -1,0 +1,14 @@
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+td{
+  text-align: center;
+}
+.mat-column-kommun{
+  width: 50%;
+}
+
+.mat-column-skatt, .mat-column-buttons{
+  width: 25%;
+}

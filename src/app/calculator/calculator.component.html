@@ -1,0 +1,63 @@
+<form [formGroup]="myForm" class="form" (ngSubmit)="handleSubmit()" novalidate>
+
+  <div class="d-flex bg-white">
+
+    <div class="d-flex flex-column justify-conent-center col p-5">
+
+      <mat-form-field class="m-3" appearance="fill">
+        <mat-label>Kommun</mat-label>
+        <input matInput formControlName="kommun" [matAutocomplete]="auto" (ngModelChange)="onTypeKommun()"
+          oninput="this.value = this.value.toUpperCase().trim()">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let kommun of filteredKommuner | async" [value]="kommun">
+            {{ kommun }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="m-3">
+        <mat-select placeholder="inkomstår" formControlName="year" (ngModelChange)="onYearSelected()">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{ year }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="m-3">
+        <mat-label>Årsinkomst</mat-label>
+        <input matInput formControlName="inkomst" type="number" min="1">
+      </mat-form-field>
+
+      <div class="d-flex justify-conent-center p-3">
+        <mat-form-field *ngIf="(myForm.get('medlem')?.value)" class="col" matTooltip="Välj Kommun och inkomstår först"
+          [matTooltipDisabled]="(selectedY && selectedK && myForm.get('medlem')?.value)">
+          <mat-label>Församling</mat-label>
+          <mat-select formControlName="forsamling">
+            <mat-option
+              *ngFor="let forsamling of (selectedY && selectedK && myForm.get('medlem')?.value) ? forsamlingar : []"
+              [value]="forsamling">
+              {{ forsamling }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox class="col m-2" formControlName="medlem" (ngModelChange)="onMedlemChange()">Medlem i Svenska
+          kyrkan</mat-checkbox>
+      </div>
+
+      <button type="submit" class="m-3 p-3 w-50 h-auto align-self-center fs-3" mat-raised-button
+        color="primary">Beräkna</button>
+
+    </div>
+
+    <div class="col p-5">
+      <div *ngIf="resultArray.length > 0" class="d-flex flex-column justify-content-around p-3 fs-2">
+        <h3 class="my-3">Här är din beräknade skatt och inkomst</h3>
+        <p class="my-3">Bruttolön: {{resultArray[2]}} </p>
+        <p class="my-3">Nettolön: {{resultArray[1]}} </p>
+        <p class="my-3">Skatt: {{resultArray[0]}} </p>
+        <p class="my-3">Marginalskatt: {{resultArray[3]}}%</p>
+      </div>
+    </div>
+
+  </div>
+</form>

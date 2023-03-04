@@ -1,0 +1,35 @@
+<h1 class="display-1 my-4 text-center">{{name}}</h1>
+<mat-accordion multi>
+  <mat-expansion-panel class="m-3 p-3 rounded" *ngFor="let year of (data | keyvalue : sortYears);let i = index"
+    (opened)="panelStates[i] = true" (closed)="panelStates[i] = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="h2 m-2">{{year.key}}</mat-panel-title>
+      <mat-panel-description>{{panelStates[i] ? '' : 'Tryck för att visa mer!'}}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="fs-4">
+      <div class="d-flex justify-content-around m-3">
+        <p><span class="boldClass">Kommunalskatt:</span> {{year.value['k-skatt']}}%</p>
+        <p><span class="boldClass">Landstingsskatt:</span> {{year.value['l-skatt']}}%</p>
+      </div>
+      <table>
+        <tr>
+          <th>Församling</th>
+          <th>Begravningsavgift</th>
+          <th>Kyrkoavgift</th>
+          <th>Skatt exkl. kyrkoavgift</th>
+          <th>Skatt inkl. kyrkoavgift</th>
+        </tr>
+        <tr *ngFor="let row of year.value['info']">
+          <td>{{row['församling']}}</td>
+          <td>{{row['b-avgift']}}%</td>
+          <td>{{row['kyrkoavgift']}}%</td>
+          <td>{{row['exkl-skatt']}}%</td>
+          <td>{{row['inkl-skatt']}}%</td>
+        </tr>
+      </table>
+    </div>
+    <mat-action-row>
+      <button mat-raised-button color="primary" [name]="year.key" (click)="calculateTax(i)">Räkna Skatt</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
