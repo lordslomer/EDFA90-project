@@ -52,9 +52,9 @@
     <div class="col p-5">
       <div *ngIf="resultArray.length > 0" class="d-flex flex-column justify-content-around p-3 fs-2">
         <h3 class="my-3">Här är din beräknade skatt och inkomst</h3>
-        <p class="my-3">Bruttolön: {{resultArray[2]}} </p>
-        <p class="my-3">Nettolön: {{resultArray[1]}} </p>
-        <p class="my-3">Skatt: {{resultArray[0]}} </p>
+        <p class="my-3">Bruttolön: {{resultArray[2].toLocaleString("sv-SE", {style:"currency", currency:"SEK"})}} </p>
+        <p class="my-3">Nettolön: {{resultArray[1].toLocaleString("sv-SE", {style:"currency", currency:"SEK"})}} </p>
+        <p class="my-3">Skatt: {{resultArray[0].toLocaleString("sv-SE", {style:"currency", currency:"SEK"})}} </p>
         <p class="my-3">Marginalskatt: {{resultArray[3]}}%</p>
       </div>
     </div>
